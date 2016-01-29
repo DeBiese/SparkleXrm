@@ -3,6 +3,7 @@
 
 using ClientUI.Model;
 using ClientUI.ViewModels;
+using ClientUI.View;
 using KnockoutApi;
 using SparkleXrm;
 using System;
@@ -129,6 +130,7 @@ namespace ClientUI.ViewModel
         public static void RoleSearch(string term, Action<EntityCollection> callback,string typeName)
         {
             string recordTypeFilter = string.Empty;
+            string categoryFilter = string.Empty;
 
             if (typeName != null)
             {
@@ -141,6 +143,12 @@ namespace ClientUI.ViewModel
                                             <condition attribute='associatedobjecttypecode' operator='eq' value='0' />
                                         </filter>", etc);
             }
+
+            if (ConnectionsView.category > 0)
+            {
+                categoryFilter = String.Format(@"<condition attribute='category' operator='eq' value='{0}' />", ConnectionsView.category);
+            }
+
             string fetchXml = @"
                             <fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false' no-lock='true' >
                                 <entity name='connectionrole' >

@@ -24,6 +24,7 @@ namespace ClientUI.View
         #region Fields
         private static ConnectionsViewModel vm;
         private static Grid connectionsGrid;
+        public static int category;
         #endregion
 
         #region Methods
@@ -31,9 +32,9 @@ namespace ClientUI.View
         public static void Init()
         {
             PageEx.MajorVersion = 2013; // Use the CRM2013/2015 styles
-            
 
-            
+
+            category = 0;
             
             int lcid = (int)OrganizationServiceProxy.GetUserSettings().UILanguageId;
 
@@ -55,7 +56,7 @@ namespace ClientUI.View
             string id;
             string logicalName;
             int pageSize = 10;
-            string defaultView=null;
+            string defaultView=null;            
 
 #if DEBUG
             id = "C489707F-B5E2-E411-80D5-080027846324";
@@ -82,6 +83,9 @@ namespace ClientUI.View
                         break;
                     case "view":
                         defaultView = parameters[key];
+                        break;
+                    case "category":
+                        category = int.Parse(parameters[key]);
                         break;
                 }
             }
